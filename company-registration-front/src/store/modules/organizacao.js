@@ -1,5 +1,5 @@
-import Vue from 'vue/types';
-import axios from 'axios/index';
+import Vue from 'vue'
+import axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
 
 // Initial state

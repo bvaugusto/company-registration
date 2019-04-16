@@ -18,16 +18,14 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Vuetify from 'vuetify'
 import './plugins/assets'
 
 import App from './App.vue'
-import { routes } from './routes/'
+import { routes } from './router'
 import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-Vue.use(Vuetify)
 
 const router = new VueRouter({
   routes,
