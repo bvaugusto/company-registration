@@ -1,5 +1,5 @@
 <template>
-  <container fluid ma-5 pa-0 fill-width>
+  <div fluid ma-5 pa-0 fill-width>
     <layout row>
       <flex xs12>
         <subheader>Cadastro</subheader>
@@ -48,7 +48,7 @@
         </flex>
       </flex>
     </layout>
-  </container>
+  </div>
 </template>
 
 <script>

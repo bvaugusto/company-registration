@@ -26,6 +26,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      'admlte': 'admin-lte/dist',
       '@': resolve('src'),
     }
   },
