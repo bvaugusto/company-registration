@@ -88,6 +88,7 @@ export default {
   }
 };
 // https://www.npmjs.com/package/vuejs-datatable
+// https://vuetable.ratiw.net/api/users
 </script>
 
 
