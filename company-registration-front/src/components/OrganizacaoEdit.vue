@@ -264,7 +264,7 @@ export default {
       this.formData.social_name = store.state.organizacao.dados.nome;
       this.formData.cep = store.state.organizacao.dados.cep;
       this.formData.public_place = store.state.organizacao.dados.logradouro;
-      this.formData.number = store.state.organizacao.dados.numero;
+      this.formData.number = store.state.organizacao.dados.number;
       this.formData.telephone = store.state.organizacao.dados.telefone;
       this.formData.mail = store.state.organizacao.dados.email;
       this.formData.complement = store.state.organizacao.dados.complemento;
