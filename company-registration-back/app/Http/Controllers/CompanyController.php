@@ -37,7 +37,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return response()->json($this->company->all());
+        $data = array();
+        foreach ($this->company->all() as $key => $value) {
+            $data['data'][] = $value;
+        }
+        return json_encode($data);
     }
 
     /**
@@ -67,7 +71,7 @@ class CompanyController extends Controller
             $validator = Validator::make(
                 array(
                     'cnpj' => $request->cnpj,
-                    'id_segment' => $request->id_segment,
+                    'segmento' => $request->id_segment,
                     'social_name' => $request->social_name,
                     'municipal_registration' => $request->municipal_registration,
                     'state_registration' => $request->state_registration,
@@ -75,7 +79,7 @@ class CompanyController extends Controller
                 ),
                 array(
                     'cnpj' => 'required',
-                    'id_segment' => 'required',
+                    'segmento' => 'required',
                     'social_name' => 'required',
                     'municipal_registration' => 'required',
                     'state_registration' => 'required',
@@ -84,7 +88,7 @@ class CompanyController extends Controller
                 array(
                     'cnpj' => 'Favor informar o CPF!',
                     'id_segment' => 'Favor informar o Segmento!',
-                    'social_name' => 'Favor informar a Razão Social!',
+                    'segmento' => 'Favor informar a Razão Social!',
                     'municipal_registration' => 'Favor informar a Inscrição Municipal!',
                     'state_registration' => 'Favor informar a Inscrição Estadual!',
                     'mail' => 'Favor informar o E-mail!'
@@ -100,6 +104,7 @@ class CompanyController extends Controller
             $dataCompany['cnpj'] = clearMask($request->cnpj);
             $dataCompany['id_segment'] = $request->id_segment;
             $dataCompany['social_name'] = $request->social_name;
+            $dataCompany['fantasy_name'] = $request->fantasy_name;
             $dataCompany['municipal_registration'] = $request->municipal_registration;
             $dataCompany['state_registration'] = $request->state_registration;
             $dataCompany['mail'] = $request->mail;
@@ -157,7 +162,10 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        return response()->json($this->company->show($id));
+        $returnData = array();
+        $returnData['company'] = $this->company->show($id);
+        $returnData['address'] = $this->address->show($returnData['company']['id_address']);
+        return response()->json($returnData);
     }
 
     /**

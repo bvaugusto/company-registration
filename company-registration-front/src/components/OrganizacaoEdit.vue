@@ -2,7 +2,7 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Cadastro de Empresa</h1>
+      <h1>Editar Empresa</h1>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -12,7 +12,8 @@
           <!-- Input addon -->
           <div class="box box-info">
             <div class="box-body">
-              <form ref="form" v-on:submit="onSubmit" method="post">
+              <form ref="form" v-on:submit="onUpdate" method="post">
+                <!-- <form ref="form"> -->
                 <div class="form-group">
                   <span class="form-group-addon">CNPJ</span>
                   <input
@@ -21,6 +22,7 @@
                     id="cnpj"
                     name="cnpj"
                     v-model="formData.cnpj"
+                    disabled
                   >
                 </div>
                 <div class="row">
@@ -211,7 +213,7 @@
                     </div>
                   </div>
                 </div>
-                <button class="btn btn-success">Cadastrar</button>
+                <button class="btn btn-success">Alterar</button>
               </form>
               <div style="display:none;">{{ JSON.stringify(organizacao) }}</div>
               <!-- /form-group -->
@@ -235,6 +237,8 @@ export default {
   data: () => ({
     options: [],
     formData: {
+      id: "",
+      id_address: "",
       cnpj: "",
       id_segment: "",
       social_name: "",
@@ -254,6 +258,8 @@ export default {
   }),
   computed: {
     organizacao() {
+      this.formData.id = store.state.organizacao.dados.id;
+      this.formData.id_address = store.state.organizacao.dados.id_address;
       this.formData.cnpj = store.state.organizacao.dados.cnpj;
       this.formData.social_name = store.state.organizacao.dados.nome;
       this.formData.cep = store.state.organizacao.dados.cep;
@@ -265,6 +271,13 @@ export default {
       this.formData.neightborhood = store.state.organizacao.dados.bairro;
       this.formData.city = store.state.organizacao.dados.municipio;
       this.formData.state = store.state.organizacao.dados.uf;
+      this.formData.fantasy_name = store.state.organizacao.dados.fantasy_name;
+      this.formData.id_segment = store.state.organizacao.dados.id_segment;
+      this.formData.municipal_registration =
+        store.state.organizacao.dados.municipal_registration;
+      this.formData.state_registration =
+        store.state.organizacao.dados.state_registration;
+
       return store.state.organizacao.dados;
     },
     cnpj() {
@@ -272,6 +285,8 @@ export default {
     }
   },
   created() {
+    let id = this.$route.params.id;
+
     Axios.get(`http://127.0.0.1:8000/api/segment`)
       .then(response => {
         this.options = response.data;
@@ -279,17 +294,34 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
-  },
-  watch: {
-    cnpj() {
-      if (this.formData.cnpj != undefined && this.formData.cnpj.length === 18) {
-        store.dispatch("get-data-cnpj", this.formData.cnpj);
+
+    Axios.get(`http://127.0.0.1:8000/api/company/` + id + `/edit`).then(
+      response => {
+        this.formData.cnpj = response.data.company.cnpj;
+        this.formData.id = response.data.company.id;
+        this.formData.id_address = response.data.company.id_address;
+        this.formData.social_name = response.data.company.social_name;
+        this.formData.fantasy_name = response.data.company.fantasy_name;
+        this.formData.id_segment = response.data.company.id_segment;
+        this.formData.municipal_registration =
+          response.data.company.municipal_registration;
+        this.formData.state_registration =
+          response.data.company.state_registration;
+        this.formData.cep = response.data.address.cep;
+        this.formData.public_place = response.data.address.public_place;
+        this.formData.number = response.data.address.number;
+        this.formData.telephone = response.data.address.telephone;
+        this.formData.mail = response.data.company.mail;
+        this.formData.complement = response.data.address.complement;
+        this.formData.neightborhood = response.data.address.neightborhood;
+        this.formData.city = response.data.address.city;
+        this.formData.state = response.data.address.state;
       }
-    }
+    );
   },
   methods: {
-    onSubmit: function(e) {
-      store.dispatch("post-info-api", this.formData);
+    onUpdate: function(e) {
+      store.dispatch("update-info-api", this.formData);
       e.preventDefault();
     }
   }

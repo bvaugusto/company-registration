@@ -25,9 +25,9 @@ const actions = {
         context.commit("set-state-cnpj", dados);
       });
   },
-  "post-info-api"(context, payload) {
+  "update-info-api"(context, payload) {
     axios
-      .post("http://127.0.0.1:8000/api/company", payload)
+      .put("http://127.0.0.1:8000/api/company/" + payload.id, payload)
       .then(function(response) {
         if (!response.data.success) {
           for (var key in response.data.message) {
