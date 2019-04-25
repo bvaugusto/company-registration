@@ -1,14 +1,18 @@
 import Vue from "vue";
+import App from "./App.vue";
+import VueResource from "vue-resource";
+
 import VueRouter from "vue-router";
+import { routes } from "./router";
+
 import Toasted from "vue-toasted";
 import Vuetable from "vuetable-2";
 import "./plugins/assets";
 
-import App from "./App.vue";
-import { routes } from "./router";
 import store from "./store";
 
 Vue.config.productionTip = false;
+Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(Toasted);
 Vue.use(Vuetable);

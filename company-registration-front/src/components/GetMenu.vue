@@ -7,16 +7,16 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
           <li>
-            <a href="/">
+            <router-link to="/">
               <i class="fa fa-edit"></i>
               <span>Home</span>
-            </a>
+            </router-link>
           </li>
           <li>
-            <a href="organizacao">
+            <router-link to="organizacao">
               <i class="fa fa-edit"></i>
               <span>Empresa</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </section>

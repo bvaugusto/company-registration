@@ -26,8 +26,8 @@ function clearMask($valor)
  * 
  * @author Bruno Vasconcellos Augusto <bvaugusto@gmail.com>
  * @version 1.0
- * @param $valor
- * @return string
+ * @param $cnpj
+ * @return boolean
  */
 function validaCNPJ($cnpj)
 {
